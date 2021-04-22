@@ -2,11 +2,15 @@
 
 BOOT_DIR=$1
 
+mkdir $BOOT_DIR/system
+mount -t ext4 -o ro /dev/mmcblk0p33 $BOOT_DIR/system
+#ln -s libGLESv2_adreno.so $BOOT_DIR/system/vendor/lib/egl/libGLESv2S3D_adreno.so
+
 mkdir $BOOT_DIR/nvdata
-mount -t ext4 /dev/mmcblk0p9 $BOOT_DIR/nvdata
+mount -t ext4 -o ro /dev/mmcblk0p9 $BOOT_DIR/nvdata
 
 mkdir $BOOT_DIR/firmware
-mount -t ext4 /dev/mmcblk0p32 $BOOT_DIR/firmware
+mount -t vfat -o ro /dev/mmcblk0p32 $BOOT_DIR/firmware
 
 mkdir -p /nvdata
 mkdir -p /firmware
@@ -19,6 +23,7 @@ mount --bind $BOOT_DIR/system/vendor/firmware/  /system/vendor/firmware/
 mount --bind $BOOT_DIR/vendor/firmware          /vendor/firmware
 mount --bind $BOOT_DIR/nvdata                   /nvdata
 mount --bind $BOOT_DIR/firmware                 /firmware
+mount --bind $BOOT_DIR/system                   /system
 
 dd if=/nvdata/MACWLAN of=/proc/wifi/mac
 
