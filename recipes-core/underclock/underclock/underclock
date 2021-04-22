@@ -1,19 +1,45 @@
 #!/bin/sh
-
+exit
 # Set the CPU's freq to 787MHz and disable three cores
-echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+#echo "ondemand" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+#echo "ondemand" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+#echo 50000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+#echo 90 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+#echo 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
+#echo 4 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+
+#echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 echo 0        > /sys/module/lpm_levels/parameters/sleep_disabled
-echo 0        > /sys/devices/system/cpu/cpu1/online
+echo 1        > /sys/devices/system/cpu/cpu1/online
 echo 0        > /sys/devices/system/cpu/cpu2/online
 echo 0        > /sys/devices/system/cpu/cpu3/online
 
+#exit
+echo 1267200 > /sys/devices/system/cpu/cpu0/cpufreq/max_freq
+echo 400000 > /sys/devices/system/cpu/cpu0/cpufreq/min_freq
+echo 1267200 > /sys/devices/system/cpu/cpu1/cpufreq/max_freq
+echo 400000 > /sys/devices/system/cpu/cpu1/cpufreq/min_freq
+#echo 1267200 > /sys/devices/system/cpu/cpu2/cpufreq/max_freq
+#echo 400000 > /sys/devices/system/cpu/cpu2/cpufreq/min_freq
+#echo 1267200 > /sys/devices/system/cpu/cpu3/cpufreq/max_freq
+#echo 400000 > /sys/devices/system/cpu/cpu3/cpufreq/min_freq
+#exit
+
 # Set the GPU's freq to 200MHz
-echo 200000000   > /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+echo 307200000   > /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
 echo 200000000   > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
-echo performance > /sys/class/kgsl/kgsl-3d0/devfreq/governor performance
+
+echo "bw_hwmon" > /sys/class/devfreq/soc:qcom,cpubw/governor
+echo 60 > /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/bw_step
+echo 30 > /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps
+echo 40 > /sys/class/devfreq/soc:qcom,gpubw/bw_hwmon/io_percent
+echo 60 > /sys/class/devfreq/soc:qcom,gpubw/bw_hwmon/bw_step
+echo 30 >/sys/class/devfreq/soc:qcom,gpubw/bw_hwmon/guard_band_mbps
 
 # CPU IDLE Low Power Mode config
-echo 1 > /sys/module/lpm_levels/system/cpu0/pc/suspend_enabled
-echo 1 > /sys/module/lpm_levels/system/cpu0/standalone_pc/suspend_enabled
-echo 1 > /sys/module/lpm_levels/system/cpu0/standalone_pc/idle_enabled
-echo 1 > /sys/module/lpm_levels/system/cpu0/pc/idle_enabled
+#echo 1 > /sys/module/lpm_levels/system/cpu0/pc/suspend_enabled
+#echo 1 > /sys/module/lpm_levels/system/cpu0/standalone_pc/suspend_enabled
+#echo 1 > /sys/module/lpm_levels/system/cpu0/standalone_pc/idle_enabled
+#echo 1 > /sys/module/lpm_levels/system/cpu0/pc/idle_enabled
