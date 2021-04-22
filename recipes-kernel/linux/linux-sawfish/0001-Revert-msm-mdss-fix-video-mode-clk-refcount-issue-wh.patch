@@ -1,0 +1,33 @@
+From 9c60f4bfbc0d2e1e8346420be83fe9b00ac5faa4 Mon Sep 17 00:00:00 2001
+From: MagneFire <IDaNLContact@gmail.com>
+Date: Wed, 31 Mar 2021 11:10:13 +0200
+Subject: [PATCH] Revert "msm: mdss: fix video mode clk refcount issue when
+ splash is disabled"
+
+This reverts commit e7de20a8daf5f4624ac75231e340a41137c8eb79.
+---
+ drivers/video/msm/mdss/mdp3.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/video/msm/mdss/mdp3.c b/drivers/video/msm/mdss/mdp3.c
+index 052c9964425..38ad7db0b6b 100644
+--- a/drivers/video/msm/mdss/mdp3.c
++++ b/drivers/video/msm/mdss/mdp3.c
+@@ -2210,10 +2210,10 @@ static int mdp3_is_display_on(struct mdss_panel_data *pdata)
+ 
+ 	mdp3_res->splash_mem_addr = MDP3_REG_READ(MDP3_REG_DMA_P_IBUF_ADDR);
+ 	
+-	if ((pdata->panel_info.type == MIPI_CMD_PANEL) ||(!rc)) {
+-		if (mdp3_clk_enable(0, 0))
+-			pr_err("fail to turn off MDP core clks\n");
+-	}
++	if (pdata->panel_info.type == MIPI_CMD_PANEL ||(!rc))
++		rc = mdp3_clk_enable(0, 0);
++	if (rc)
++		pr_err("fail to turn off MDP core clks\n");
+ 	return rc;
+ }
+ 
+-- 
+2.30.2
+

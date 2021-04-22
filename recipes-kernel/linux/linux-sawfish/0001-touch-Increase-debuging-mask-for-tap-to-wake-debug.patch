@@ -1,0 +1,25 @@
+From 1adaa2fd3ff5a1f5615216331451465d10031fa0 Mon Sep 17 00:00:00 2001
+From: MagneFire <IDaNLContact@gmail.com>
+Date: Tue, 13 Apr 2021 15:20:48 +0200
+Subject: [PATCH] touch: Increase debuging mask for tap-to-wake debug.
+
+---
+ drivers/input/touchscreen/cyttsp5_cs445a/cyttsp5_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/input/touchscreen/cyttsp5_cs445a/cyttsp5_core.c b/drivers/input/touchscreen/cyttsp5_cs445a/cyttsp5_core.c
+index 1f5c8642..29b6c3cf 100755
+--- a/drivers/input/touchscreen/cyttsp5_cs445a/cyttsp5_core.c
++++ b/drivers/input/touchscreen/cyttsp5_cs445a/cyttsp5_core.c
+@@ -32,7 +32,7 @@
+ #include <dsm/dsm_pub.h>
+ #endif/*CONFIG_HUAWEI_DSM*/
+ 
+-int hw_tp_common_debug_mask =2;
++int hw_tp_common_debug_mask =4;
+ 
+ #define CONFIG_HWATCH_POWER
+ 
+-- 
+2.31.1
+

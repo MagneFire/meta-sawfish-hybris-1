@@ -1,0 +1,25 @@
+From 28a8f8e032b8f93a54af5d97a1ed9395cc1032d2 Mon Sep 17 00:00:00 2001
+From: MagneFire <IDaNLContact@gmail.com>
+Date: Sun, 11 Apr 2021 18:11:02 +0200
+Subject: [PATCH] usb-gadget: Make sure that RDNIS is compiled too when
+ G_ANDROID is enabled.
+
+---
+ drivers/usb/gadget/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
+index da013581..02049003 100644
+--- a/drivers/usb/gadget/Kconfig
++++ b/drivers/usb/gadget/Kconfig
+@@ -422,6 +422,7 @@ config USB_G_ANDROID
+ 	select USB_F_NCM
+ 	select USB_F_MASS_STORAGE
+ 	select USB_F_UAC1 if SND_PCM
++	select USB_F_RNDIS
+ 	help
+ 	  The Android Composite Gadget supports multiple USB
+ 	  functions: adb, acm, mass storage, mtp, accessory
+-- 
+2.31.1
+
